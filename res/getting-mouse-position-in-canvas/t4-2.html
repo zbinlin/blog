@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../../libs/raf.js"></script>
+        <script src="draw-point.js"></script>
+
+        <style>
+            canvas {
+                outline: 1px solid red;
+                width: 250px;
+                padding-top: 20px;
+                border-left: 10px solid yellow;
+                border-top: 13px solid yellow;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                transform: translate(50px, 50px) rotate(-20deg) skew(10deg) scale(1.2);
+            }
+        </style>
+    </head>
+    <body>
+        <canvas width="500" height="250"></canvas>    
+        <script>
+            var canvas = document.querySelector("canvas");
+            var ctx = canvas.getContext("2d");
+            var drawPoint = new DrawPoint(ctx);
+
+            var style = window.getComputedStyle(canvas, null);
+            var boxSiZing = style.MozBoxSizing || style.WebkitBoxSizing || style.boxSizing;
+            var borderLeft = parseFloat(style["borderLeftWidth"]);
+            var borderTop = parseFloat(style["borderTopWidth"]);
+            var paddingLeft = parseFloat(style["paddingLeft"]);
+            var paddingTop = parseFloat(style["paddingTop"]);
+            var cssWidth = parseFloat(style["width"]);
+            var cssHeight = parseFloat(style["height"]);
+            if (~boxSiZing.indexOf("border")) {
+                cssWidth -= borderLeft + paddingLeft;
+                cssHeight -= borderTop + paddingTop;
+            } else if (~boxSiZing.indexOf("padding")) {
+                cssWidth -= paddingLeft;
+                cssHeight -= paddingTop;
+            }
+            var scaleX = canvas.width / cssWidth; // 水平方向的缩放因子
+            var scaleY = canvas.height / cssHeight; // 垂直方向的缩放因子
+
+            canvas.addEventListener("click", function __handler__(evt) {
+                if ((!"offsetX" in evt)) {
+                    alert("您的浏览器不支持 Event offsetX/offsetY！");
+                    return;
+                }
+
+                var x = evt.offsetX;
+                var y = evt.offsetY;
+
+                if (!/Firefox/i.test(navigator.userAgent)) { /* firefox 中 offset{X,Y} 不包括 border */
+                    x -= borderLeft;
+                    y -= borderTop;
+                }
+                x -= paddingLeft;
+                y -= paddingTop;
+
+                x *= scaleX;
+                y *= scaleY;
+
+                console.log("x:", x, "; offsetX:", evt.offsetX, "; layerX:", evt.layerX);
+                console.log("y:", y, "; offsetY:", evt.offsetY, "; layerY:", evt.layerY);
+                drawPoint.draw(x, y);
+            });
+        </script>
+    </body>
+</html>

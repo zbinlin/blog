@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../../libs/raf.js"></script>
+        <script src="draw-point.js"></script>
+
+        <style>
+            canvas {
+                outline: 1px solid red;
+                width: 250px;
+                padding-top: 20px;
+                border-top: 13px solid yellow;
+                transform: translate(50px, 50px) rotate(-20deg) skew(10deg) scale(1.2);
+            }
+        </style>
+    </head>
+    <body>
+        <canvas width="500" height="250"></canvas>    
+        <script>
+            var canvas = document.querySelector("canvas");
+            var ctx = canvas.getContext("2d");
+            var drawPoint = new DrawPoint(ctx);
+
+            if (("getBoxQuads" in canvas)) {
+                alert("您的浏览器不支持 getBoxQuads");
+            }
+
+            var quads = canvas.getBoxQuads({
+                box: "content",
+                relativeTo: canvas
+            });
+            var bounds = quads[0].bounds;
+            var scaleX = canvas.width / bounds.width;
+            var scaleY = canvas.height / bounds.height;
+
+            canvas.addEventListener("click", function __handler__(evt) {
+                var point = canvas.convertPointFromNode({
+                    x: evt.clientX,
+                    y: evt.clientY
+                }, document, {
+                    toBox: "content"
+                });
+                var x = point.x;
+                var y = point.y;
+                console.log(x, y);
+
+                x *= scaleX;
+                y *= scaleY;
+
+                console.log("x:", x, "; offsetX:", evt.offsetX, "; layerX:", evt.layerX);
+                console.log("y:", y, "; offsetY:", evt.offsetY, "; layerY:", evt.layerY);
+                drawPoint.draw(x, y);
+            });
+        </script>
+    </body>
+</html>

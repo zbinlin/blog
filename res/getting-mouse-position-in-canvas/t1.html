@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../../libs/raf.js"></script>
+        <script src="draw-point.js"></script>
+
+        <style>
+            canvas {
+                outline: 1px solid red;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas width="500" height="250"></canvas>    
+        <script>
+            var canvas = document.querySelector("canvas");
+            var ctx = canvas.getContext("2d");
+            var drawPoint = new DrawPoint(ctx);
+            canvas.addEventListener("click", function __handler__(evt) {
+                var x = evt.clientX;
+                var y = evt.clientY;
+                var rect = canvas.getBoundingClientRect();
+                x -= rect.left;
+                y -= rect.top;
+                console.log("x:", x, "; offsetX:", evt.offsetX, "; layerX:", evt.layerX);
+                console.log("y:", y, "; offsetY:", evt.offsetY, "; layerY:", evt.layerY);
+                drawPoint.draw(x, y);
+            });
+        </script>
+    </body>
+</html>
