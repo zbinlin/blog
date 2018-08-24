@@ -9,3 +9,5 @@ My Blog
 * [捕获 Virtualbox 虚拟机的网络流量](capture-network-traffic-from-virtualbox.md)
 
 * [fc-match 使用简介](fc-match-intro.md)
+
+* [在 KVM 上安装 CentOS 7 过程记录](migrate-vps.md)
