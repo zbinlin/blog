@@ -18,7 +18,7 @@ canvas.addEventListener("click", function __handler__(evt) {
 });
 ```
 
-** [DEMO-1](res/getting-mouse-position-in-canvas/t1.html) **
+** [DEMO-1](https://live-demo.github.io/getting-mouse-position-in-canvas/t1.html) **
 
 
 ## 设置了 border/padding
@@ -45,14 +45,14 @@ canvas.addEventListener("click", function __handler__(evt) {
 });
 ```
 
-** [DEMO-2-1](res/getting-mouse-position-in-canvas/t2-1.html) **
+** [DEMO-2-1](https://live-demo.github.io/getting-mouse-position-in-canvas/t2-1.html) **
 
 
 ## 设置了 css width/height
 
 当在 canvas 上设置了 css 的 width、height，并且与 canvas 的 width、height 属性不同时（可以非常简单对 canvas 进行放大或缩小，在移动页面上常常会使用）。从上面计算出来的坐标在 canvas 里使用又会出现偏移。
 
-** [DEMO-3-0](res/getting-mouse-position-in-canvas/t3-0.html) **
+** [DEMO-3-0](https://live-demo.github.io/getting-mouse-position-in-canvas/t3-0.html) **
 
 这里就需要对坐标进行修正：
 
@@ -74,14 +74,14 @@ canvas.addEventListener("click", function __handler__(evt) {
 });
 ```
 
-** [DEMO-3-1](res/getting-mouse-position-in-canvas/t3-1.html) **
+** [DEMO-3-1](https://live-demo.github.io/getting-mouse-position-in-canvas/t3-1.html) **
 
 
 ## 设置了 transform
 
 如果我们在 canvas 的 style 上添加了 transform，又有可能会导致上面计算出来的坐标出现偏移。
 
-** [DEMO-4-0](res/getting-mouse-position-in-canvas/t4-0.html) **
+** [DEMO-4-0](https://live-demo.github.io/getting-mouse-position-in-canvas/t4-0.html) **
 
 而且经过 transform 后很难通过已经的 API 来计算出准确的坐标？w3c 为了解决这个问题，在 CSSOM-View 中添加了一个名为 [GeometryUtils](http://dev.w3.org/csswg/cssom-view/#the-geometryutils-interface) 的接口，该接口提供了一系列的 api 帮助我们对页面上的点、矩形、四边形等的坐标进行转换（目前只有 Firefox 支持）。
 这里我们使用其中的 `convertPointFromNode` 方法，直接把在 viewport 的坐标 `(evt.clientX, evt.clientY)` 转换成相对于 canvas 元素的坐标。
@@ -107,9 +107,9 @@ canvas.addEventListener("click", function __handler__(evt) {
     console.log(x, y);
 });
 ```
-** [DEMO-4-1](res/getting-mouse-position-in-canvas/t4-1.html) **
+** [DEMO-4-1](https://live-demo.github.io/getting-mouse-position-in-canvas/t4-1.html) **
 
 
 在文章的最后，贴上另一种方法的解决方案：
 
-** [DEMO-4-2](res/getting-mouse-position-in-canvas/t4-2.html) **
+** [DEMO-4-2](https://live-demo.github.io/getting-mouse-position-in-canvas/t4-2.html) **

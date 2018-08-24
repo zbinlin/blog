@@ -24,7 +24,7 @@
             var ctx = canvas.getContext("2d");
             var drawPoint = new DrawPoint(ctx);
 
-            if (("getBoxQuads" in canvas)) {
+            if (!("getBoxQuads" in canvas)) {
                 alert("您的浏览器不支持 getBoxQuads");
             }
 

@@ -47,7 +47,7 @@
             var scaleY = canvas.height / cssHeight; // 垂直方向的缩放因子
 
             canvas.addEventListener("click", function __handler__(evt) {
-                if ((!"offsetX" in evt)) {
+                if (!("offsetX" in evt)) {
                     alert("您的浏览器不支持 Event offsetX/offsetY！");
                     return;
                 }

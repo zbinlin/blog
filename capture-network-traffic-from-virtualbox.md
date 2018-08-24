@@ -51,7 +51,7 @@
  # ip link set dev tap0 master br0
  ```
 
-3. 更改 Virtualbox 虚拟机（假定该虚拟机为 *vm1*）网卡（假定为 *NIC 1*，即序号为 1）的**连接方式**为*桥接网卡*（*Bridged Adapter*），
+4. 更改 Virtualbox 虚拟机（假定该虚拟机为 *vm1*）网卡（假定为 *NIC 1*，即序号为 1）的**连接方式**为*桥接网卡*（*Bridged Adapter*），
  **界面名称**为 *tap0*：
 
  ```shell
@@ -59,7 +59,7 @@
  $ VBoxManage modifyvm vm1 --bridgeadapter1 tap0
  ```
 
-4. 使用 DHCP 为 *br0* 分配 ip
+5. 使用 DHCP 为 *br0* 分配 ip
 
  如果 *eth0* 已经 DHCP 分配了 ip，先清空它（如果 *eth0* 有 dhcp client daemon，要 kill 掉它）
 
