@@ -11,3 +11,5 @@ My Blog
 * [fc-match 使用简介](fc-match-intro.md)
 
 * [在 KVM 上安装 CentOS 7 过程记录](migrate-vps.md)
+
+* [使用 ssh 连接相同 ip 不同主机时的 fingerprint 冲突问题](resolve-ssh-connect-same-ip-in-diff-host.md)
