@@ -1,7 +1,7 @@
 # 在 KVM 上安装 CentOS 7 过程记录
 
 最近，由于 [Crissic Solutions](http://www.zrblog.net/15598.html) 关闭了服务，导致我不得不又要去寻找其他便宜点的 VPS 了，刚好
-[hostdo](http://hostodo.com/portal/aff.php?aff=271 "注：此链接包含有了 AFF 码")
+<del datetime="2018-09-06T06:16:39.509Z" title="比较坑，不推荐使用">hostodo</del>
 有优惠，有个 KVM 的套餐价格与之前 Crissic 的一样。因此有买了一年。
 
 刚下订单后，服务没立即开通，可能需要审核，等了比较久，于是发了一个 Ticket，在第 2 天登录后，发现已经开通了。购买时机房选洛杉矶的，从广州 ping 了下 time
