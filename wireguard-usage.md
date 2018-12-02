@@ -180,11 +180,11 @@ ip route add default via 192.168.128.1 dev wg0 src 192.168.128.254
 ```ini
 [Interface]
 Address = <服务器上设定 wg0 接口的地址，如：192.168.128.1/24>
-PrivateKey = <使用 `wg-genkey` 生成的私钥>
+PrivateKey = <使用 `wg genkey` 生成的私钥>
 ListenPort = <服务器上 wg0 监听的端口，如：1234>
 
 [Peer]
-PublicKey = <本地的公钥，可以使用 `echo <本地私钥> | wg-pubkey` 生成>
+PublicKey = <本地的公钥，可以使用 `echo <本地私钥> | wg pubkey` 生成>
 AllowedIPs = <本地 wg0 接口上的地址，如：192.168.128.254/32>
 ```
 
@@ -193,10 +193,10 @@ AllowedIPs = <本地 wg0 接口上的地址，如：192.168.128.254/32>
 ```ini
 [Interface]
 Address = <本地设定 wg0 接口的地址，如：192.168.128.254/24>
-PrivateKey = <使用 `wg-genkey` 生成的私钥>
+PrivateKey = <使用 `wg genkey` 生成的私钥>
 
 [Peer]
-PublicKey = <服务器的公钥，可以使用 `echo <服务器私钥> | wg-pubkey` 生成>
+PublicKey = <服务器的公钥，可以使用 `echo <服务器私钥> | wg pubkey` 生成>
 AllowedIPs = 0.0.0.0/0
 Endpoint = <服务器外网地址:服务器上 wg0 监听的端口，如：0.1.2.3:1234>
 ```
