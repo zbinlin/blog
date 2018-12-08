@@ -135,7 +135,7 @@ iptables -t filter -L FORWARD
 
 ```bash
 iptables -t filter -A FORWARD -i wg0 -j ACCEPT
-iptables -t filter -A FORWARD -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -t filter -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 ```
 
 然后看下 *nat* 表的 *POSTROUTING* 链里是否已经做了出口的 NAT 了（这里假设服务器上连接外网的接口是 *eth0*）：
@@ -299,3 +299,81 @@ forward-zone:
 这是一个独立的配置文件，可以把它放到 `/etc/unbound/` 下，然后在 `/etc/unbound/unbound.conf` 配置文件里加入 `include: /etc/unbound/dns-over-tls.conf` 来引入它。
 
 加入后重启 unbound 服务就可以生效了。
+
+
+## IPv6 相关配置
+
+**Updated: 2018-12-8**
+
+上面的设置都是基于 IPv4 的，最近使用的网络支持了 IPv6，刚好 WireGuard 是支持 IPv6 的，因此有了下面的设置。
+
+### IPv6 over WireGuard
+
+其实本地没有 IPv6，但服务器支持的话，一样可以使用 IPv6 的。
+
+首先配置下服务器端。
+
+首先需要开启 IPv6 的转发功能，与 IPv4 的类似：
+
+```bash
+sysctl -w net.ipv6.conf.all.forwarding=2
+sysctl -w net.ipv6.conf.default.forwarding=2
+# 如果服务器的 IPv6 地址是通过 SLAAC 来分配的，需要设置以下项
+sysctl -w net.ipv6.conf.all.accept_ra=2
+sysctl -w net.ipv6.conf.default.accept_ra=2
+```
+
+然后开启 iptables 的转发与 MASQUERADE 功能：
+
+```bash
+ip6tables -t filter -A FORWARD -i wg+ -j ACCEPT
+ip6tables -t filter -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+```
+
+最后，修改下 WireGuard 的配置文件。
+
+在 `[Interface]` 添加一个 `Address` 字段，值为 [Unique local addresses](https://en.wikipedia.org/wiki/Unique_local_address) 允许的地址，如：
+
+```conf
+[Interface]
+...
+Address = fd10:db31:0203:ab31::1/64
+```
+
+然后在 `[Peer]` 下添加 `AllowedIPs` 字段，假设这里本地端的 `Address` 值为 `fd10:db31:0203:ab31::2/64`，这里就是该 IP 地址了（不需要后面的 `/64`）：
+
+```conf
+[Peer]
+...
+AllowedIPs = fd10:db31:0203:ab31::2
+```
+
+配置好服务器端后，仅需要在本地端的 WireGuard 配置里的 `[Interface]` 加上 `Address` 字段：
+
+```conf
+[Interface]
+...
+Address = fd10:db31:0203:ab31::2/64
+```
+
+将在 `[Peer]` 里添加上：
+
+```
+[Interface]
+...
+Address = ::/0
+```
+
+这样，本地所有的 IPv6 流量将走 WireGuard 的接口，如果需要分流国内外的，可以参考[这里](https://github.com/zbinlin/wireguard-configuration)
+
+以上配置，在本地是不需要 IPv6 地址的。
+
+
+### 通过 IPv6 连接 WireGuard
+
+假设本地的网络已经支持 IPv6 了，可以直接通过 IPv6 连接服务器的 WireGuard。
+
+如果只是本地的服务器通过 IPv6 连接，只需要将地址的 WireGuard 配置里 `[Peer]` 的 `Endpoint` 改成的服务器的 IPv6 地址即可。
+
+如果需要通过 WireGuard 访问 IPv6 的网站，除了需要改 `Endpoint` 外，也只是需要将上面 [IPv6 over WireGuard](#IPv6 over WireGuard) 那一小节来配置就可以了。
