@@ -27,3 +27,5 @@ My Blog
 * [使用 ssh 连接相同 ip 不同主机时的 fingerprint 冲突问题](resolve-ssh-connect-same-ip-in-diff-host.md)
 
 * [WireGuard 配置和上网流量优化](wireguard-usage.md)
+
+* [使用 GnuPG(OpenPGP) ECC(ed25519/ecc25519) 密钥作为 ssh 登录密钥](use-gnupg-agent-as-ssh-agent.md)
