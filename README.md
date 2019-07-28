@@ -29,3 +29,5 @@ My Blog
 * [WireGuard 配置和上网流量优化](wireguard-usage.md)
 
 * [使用 GnuPG(OpenPGP) ECC(ed25519/ecc25519) 密钥作为 ssh 登录密钥](use-gnupg-agent-as-ssh-agent.md)
+
+* [通过 ssh 命令临时地使用 Android 作为 SOCKS 4/5 服务器](android-as-socks5-server-by-ssh-temporary.md)
