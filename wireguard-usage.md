@@ -6,9 +6,11 @@
 
 在使用 WireGuard 之前，需要分别在服务器和本地安装。
 
-由于本人的服务器上使用 debian 9、本地使用 Arch Linux，因此这里只给出这两种系统上的安装方式，其他系统上的安装可以在[官网](https://www.wireguard.com/install/)找到。
+由于本人的服务器上使用 ~~Debian 9~~(Debian 10)、本地使用 Arch Linux，因此这里只给出这两种系统上的安装方式，其他系统上的安装可以在[官网](https://www.wireguard.com/install/)找到。
 
 ### Debian
+
+#### Debian 9 (Stretch) - Deprecated
 
 ```bash
 echo "deb http://deb.debian.org/debian/ unstable main" > /etc/apt/sources.list.d/unstable.list
@@ -16,6 +18,16 @@ printf 'Package: *\nPin: release a=unstable\nPin-Priority: 150\n' > /etc/apt/pre
 apt update
 apt install wireguard
 ```
+
+#### Debian 10 (Buster)
+
+```bash
+echo 'deb http://deb.debian.org/debian buster-backports main' > /etc/apt/sources.list.d/backports.list
+apt update
+apt -t buster-backports install wireguard
+```
+
+###
 
 ### Arch Linux
 
