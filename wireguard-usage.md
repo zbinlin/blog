@@ -328,8 +328,8 @@ forward-zone:
 首先需要开启 IPv6 的转发功能，与 IPv4 的类似：
 
 ```bash
-sysctl -w net.ipv6.conf.all.forwarding=2
-sysctl -w net.ipv6.conf.default.forwarding=2
+sysctl -w net.ipv6.conf.all.forwarding=1
+sysctl -w net.ipv6.conf.default.forwarding=1
 # 如果服务器的 IPv6 地址是通过 SLAAC 来分配的，需要设置以下项
 sysctl -w net.ipv6.conf.all.accept_ra=2
 sysctl -w net.ipv6.conf.default.accept_ra=2

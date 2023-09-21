@@ -83,7 +83,7 @@ qemu-system-x86_64 -machine pc,accel=kvm,dump-guest-core=off -m 4096 \
   -smp 4,sockets=1,dies=1,cores=4,threads=1 -rtc base=utc \
   -boot strict=on -kernel $PWD/base/boot/vmlinuz-linux \
   -initrd $PWD/base/boot/initramfs-linux.img \
-  -append 'root=fsRoot rw rootfstype=9p rootflags=trans=virtio,version=9p2000.L,msize=5000000,cache=mmap,posxacl console=ttyS0' \
+  -append 'root=fsRoot rw rootfstype=9p rootflags=trans=virtio,version=9p2000.L,msize=5000000,cache=mmap,posixacl console=ttyS0' \
   -fsdev local,security_model=passthrough,multidevs=remap,id=fsdev-fsRoot,path=$PWD/base \
   -device virtio-9p-pci,id=fsRoot,fsdev=fsdev-fsRoot,mount_tag=fsRoot \
   -sandbox on,obsolete=deny,elevateprivileges=deny,spawn=deny,resourcecontrol=deny
