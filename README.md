@@ -33,3 +33,5 @@ My Blog
 * [通过 ssh 命令临时地使用 Android 作为 SOCKS 4/5 服务器](android-as-socks5-server-by-ssh-temporary.md)
 
 * [关于网站跳转、弹窗、唤起 APP 的“伪”技术分析（知乎篇）](zhihu-ad-popup-analysis.md)
+
+* [使用宿主机的目录作为 QEMU 虚拟机的主文件系统](use-host-directory-for-geust-rootfs.md)
