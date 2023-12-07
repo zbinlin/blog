@@ -35,3 +35,5 @@ My Blog
 * [关于网站跳转、弹窗、唤起 APP 的“伪”技术分析（知乎篇）](zhihu-ad-popup-analysis.md)
 
 * [使用宿主机的目录作为 QEMU 虚拟机的主文件系统](use-host-directory-for-geust-rootfs.md)
+
+* [在 remix v2 中使用 CJS 作为服务端模块格式](./changes-from-esm-to-cjs-in-remix-v2.md)
